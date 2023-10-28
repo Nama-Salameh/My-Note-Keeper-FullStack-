@@ -2,6 +2,7 @@
   "name": "mynotekeeper",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -14,7 +15,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-linkify": "^1.0.0-alpha",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
