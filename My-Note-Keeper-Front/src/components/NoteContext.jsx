@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer , useEffect } from "react";
 
 const NotesContext = createContext();
 
@@ -13,6 +13,15 @@ export function useNotesDispatch() {
 export const NotesProvider = ({ children }) => {
   const [notes, dispatch] = useReducer(notesReducer, initialNotes);
 
+  useEffect(() => {
+    fetch("/api/notes")
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: "setNotes", data });
+      });
+  } , []);
+
+
   return (
     <NotesContext.Provider value={{ notes, dispatch }}>
       {children}
@@ -22,6 +31,9 @@ export const NotesProvider = ({ children }) => {
 
 const notesReducer = (notes, action) => {
   switch (action.type) {
+    case "setNotes": {
+      return action.data;
+    }
     case "add": {
       return [
         ...notes,
