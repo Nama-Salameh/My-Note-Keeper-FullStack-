@@ -34,17 +34,36 @@ const NoteForm = () => {
     }
     const currentDate = new Date();
     const id = generateUniqueId();
-    dispatch({
-      type: "add",
+    const newNote = {
       id,
       title,
       content,
       date: currentDate.toLocaleDateString(),
-    });
+    };
 
-    setTitle("");
-    setContent("");
-    setExpanded(false);
+    fetch("/api/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newNote),
+    })
+      .then((response) => {
+        if (response.ok) {
+          dispatch({
+            type: "add",
+            ...newNote,
+          });
+          setExpanded(false);
+          setTitle("");
+          setContent("");
+        } else {
+          throw new Error("Failed to add the note");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
