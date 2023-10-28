@@ -43,11 +43,23 @@ const Note = ({ note, backgroundColor }) => {
   };
 
   const handleDeleteNote = () => {
-    dispatch({
-      type: "delete",
-      id: note.id,
-    });
-    setDeleteModalOpen(false);
+    fetch(`/api/notes/${note.id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          dispatch({
+            type: "delete",
+            id: note.id,
+          });
+          setDeleteModalOpen(false);
+        } else {
+          throw new Error("Failed to delete the note");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleUpdateNote = () => {
