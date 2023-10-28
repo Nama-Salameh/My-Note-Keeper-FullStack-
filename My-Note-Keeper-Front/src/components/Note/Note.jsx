@@ -63,16 +63,36 @@ const Note = ({ note, backgroundColor }) => {
   };
 
   const handleUpdateNote = () => {
-    dispatch({
-      type: "update",
+    const updatedNote = {
       id: note.id,
       title: editedNote.title,
       content: editedNote.content,
       date: editedNote.date,
-    });
-    setEditDialogOpen(false);
+    };
+  
+    fetch(`/api/notes/${note.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedNote),
+    })
+      .then((response) => {
+        if (response.ok) {
+          dispatch({
+            type: 'update',
+            ...updatedNote,
+          });
+          setEditDialogOpen(false);
+        } else {
+          throw new Error('Failed to update the note');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
-
+  
   return (
     <Paper
       elevation={3}
