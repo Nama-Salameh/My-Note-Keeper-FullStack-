@@ -1,0 +1,27 @@
+.searchBar {
+  width: 25%;
+  color: rgba(106, 106, 106, 0.527);
+  border: none !important;
+  outline: none !important;
+}
+.searchBar input {
+  height: 10px;
+  padding-left: 1%;
+}
+
+@media (max-width: 1300px) {
+  .searchBar {
+    width: 40%;
+  }
+}
+@media (max-width: 768px) {
+  .searchBar {
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .searchBar {
+    width: 65%;
+  }
+}
