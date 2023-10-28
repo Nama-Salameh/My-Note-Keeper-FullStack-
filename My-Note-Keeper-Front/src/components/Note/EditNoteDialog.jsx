@@ -12,10 +12,6 @@ const EditNoteDialog = ({
 }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  useEffect(() => {
-    setCurrentDate(new Date());
-  }, [editedNote.title, editedNote.content]);
-
   const handleTitleChange = (e) => {
     setEditedNote({ ...editedNote, title: e.target.value });
   };
